@@ -1,24 +1,43 @@
-import { isFilenameCamelCase, isFilenamePascalCase, removeFileExtension } from '../../src/helpers/filename';
+import {
+  getFileNameWithoutExtensions,
+  isFilenameCamelCase,
+  isFilenamePascalCase,
+  removeFileExtension
+} from '../../src/helpers/filename';
 
 describe('case', () => {
   it('removeFileExtension', () => {
-    expect(removeFileExtension('myFilenameAPIIsCamelCase.js')).toEqual('myFilenameAPIIsCamelCase')
-    expect(removeFileExtension('NotCamelCaseHTTP.js')).toEqual('NotCamelCaseHTTP')
-    expect(removeFileExtension('alsoCamelCase123API.js')).toEqual('alsoCamelCase123API')
-    expect(removeFileExtension('not_camel_case_API.js')).toEqual('not_camel_case_API')
-    expect(removeFileExtension('validCamelCaseHTTP.js')).toEqual('validCamelCaseHTTP')
-    expect(removeFileExtension('myFilenameIsCamelCase.js')).toEqual('myFilenameIsCamelCase')
-    expect(removeFileExtension('myFilenameHTTPIsCamelCase.js')).toEqual('myFilenameHTTPIsCamelCase')
-    expect(removeFileExtension('NotCamelCase.js')).toEqual('NotCamelCase')
-    expect(removeFileExtension('alsoCamelCase123.js')).toEqual('alsoCamelCase123')
-    expect(removeFileExtension('not_camel_case.js')).toEqual('not_camel_case')
-    expect(removeFileExtension('myAPIHandler.js')).toEqual('myAPIHandler')
-    expect(removeFileExtension('HTTPRequest.js')).toEqual('HTTPRequest')
-    expect(removeFileExtension('httpRequest.js')).toEqual('httpRequest')
-    expect(removeFileExtension('xmlHTTPRequest.js')).toEqual('xmlHTTPRequest')
-    expect(removeFileExtension('myFileHTTPAPI.js')).toEqual('myFileHTTPAPI')
-    expect(removeFileExtension('Not_Camel_Case.js')).toEqual('Not_Camel_Case')
-    expect(removeFileExtension('camelCASE.js')).toEqual('camelCASE')
+    expect(removeFileExtension('myFilenameAPIIsCamelCase.js')).toEqual('myFilenameAPIIsCamelCase');
+    expect(removeFileExtension('NotCamelCaseHTTP.js')).toEqual('NotCamelCaseHTTP');
+    expect(removeFileExtension('alsoCamelCase123API.js')).toEqual('alsoCamelCase123API');
+    expect(removeFileExtension('not_camel_case_API.js')).toEqual('not_camel_case_API');
+    expect(removeFileExtension('validCamelCaseHTTP.js')).toEqual('validCamelCaseHTTP');
+    expect(removeFileExtension('myFilenameIsCamelCase.js')).toEqual('myFilenameIsCamelCase');
+    expect(removeFileExtension('myFilenameHTTPIsCamelCase.js')).toEqual('myFilenameHTTPIsCamelCase');
+    expect(removeFileExtension('NotCamelCase.js')).toEqual('NotCamelCase');
+    expect(removeFileExtension('alsoCamelCase123.js')).toEqual('alsoCamelCase123');
+    expect(removeFileExtension('not_camel_case.js')).toEqual('not_camel_case');
+    expect(removeFileExtension('myAPIHandler.js')).toEqual('myAPIHandler');
+    expect(removeFileExtension('HTTPRequest.js')).toEqual('HTTPRequest');
+    expect(removeFileExtension('httpRequest.js')).toEqual('httpRequest');
+    expect(removeFileExtension('xmlHTTPRequest.js')).toEqual('xmlHTTPRequest');
+    expect(removeFileExtension('myFileHTTPAPI.js')).toEqual('myFileHTTPAPI');
+    expect(removeFileExtension('Not_Camel_Case.js')).toEqual('Not_Camel_Case');
+    expect(removeFileExtension('camelCASE.js')).toEqual('camelCASE');
+  });
+
+  it('getFileNameWithoutExtensions', () => {
+    expect(getFileNameWithoutExtensions('myFilenameAPIIsCamelCase.fixtures.js')).toEqual('myFilenameAPIIsCamelCase');
+    expect(getFileNameWithoutExtensions('NotCamelCaseHTTP.js')).toEqual('NotCamelCaseHTTP');
+    expect(getFileNameWithoutExtensions('alsoCamelCase123API.test.js')).toEqual('alsoCamelCase123API');
+    expect(getFileNameWithoutExtensions('not_camel_case_API.spec.js')).toEqual('not_camel_case_API');
+    expect(getFileNameWithoutExtensions('validCamelCaseHTTP.schema.js')).toEqual('validCamelCaseHTTP');
+    expect(getFileNameWithoutExtensions('myFilenameIsCamelCase.js')).toEqual('myFilenameIsCamelCase');
+    expect(getFileNameWithoutExtensions('myFilenameHTTPIsCamelCase.js')).toEqual('myFilenameHTTPIsCamelCase');
+    expect(getFileNameWithoutExtensions('NotCamelCase.ts')).toEqual('NotCamelCase');
+    expect(getFileNameWithoutExtensions('alsoCamelCase123.js')).toEqual('alsoCamelCase123');
+    expect(getFileNameWithoutExtensions('not_camel_case.xml')).toEqual('not_camel_case');
+    expect(getFileNameWithoutExtensions('myAPIHandler.anything.js')).toEqual('myAPIHandler');
   });
 
   it('isFilenameCamelCase', () => {

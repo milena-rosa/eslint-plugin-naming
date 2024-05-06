@@ -6,8 +6,8 @@ const directoryNamingRule: Rule.RuleModule = {
   create(context) {
     return {
       Program: (node) => {
-        const { filename } = context;
-        const directoryPath = path.dirname(filename);
+        const { filename, cwd } = context;
+        const directoryPath = path.dirname(filename).replace(cwd, '');
 
         // Split the directory path to check each part
         const parts = directoryPath.split(path.sep);

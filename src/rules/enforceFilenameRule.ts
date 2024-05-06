@@ -18,10 +18,11 @@ const enforceFilename: Rule.RuleModule = {
     schema: []
   },
   create(context) {
-    let classDeclarationFound = false;
+    const { sourceCode } = context;
+    let classDeclarationFound = sourceCode.text.includes('module.exports = class');
 
     return {
-      ClassDeclaration(node: ESTree.Node) {
+      ClassDeclaration() {
         classDeclarationFound = true;
       },
       'Program:exit': (node: ESTree.Program) => {
