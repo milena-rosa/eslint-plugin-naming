@@ -1,4 +1,11 @@
-import { isCamelCase, isKebabCase, isPascalCase } from '../../src/helpers/casing';
+import {
+  isCamelCase,
+  isKebabCase,
+  isPascalCase,
+  toCamelCase,
+  toKebabCase,
+  toPascalCase
+} from '../../src/helpers/casing';
 
 describe('case', () => {
   it('isCamelCase', () => {
@@ -57,5 +64,142 @@ describe('case', () => {
     expect(isPascalCase('MyFileHTTPAPI')).toBe(true);
     expect(isPascalCase('Not_Pascal_Case')).toBe(false);
     expect(isPascalCase('PascalCASE')).toBe(true);
+  });
+});
+
+describe('String Case Transformations', () => {
+  // Tests for toPascalCase
+  describe('toPascalCase', () => {
+    // Existing tests...
+
+    test('handles empty strings', () => {
+      expect(toPascalCase('')).toBe('');
+    });
+
+    test('converts strings with numbers', () => {
+      expect(toPascalCase('hello2world')).toBe('Hello2World');
+    });
+
+    test('converts strings starting with numbers', () => {
+      expect(toPascalCase('123hello')).toBe('123Hello');
+    });
+
+    test('converts strings ending with numbers', () => {
+      expect(toPascalCase('hello123')).toBe('Hello123');
+    });
+
+    test('converts strings with acronyms', () => {
+      expect(toPascalCase('using API with XML and HTTP')).toBe('UsingAPIWithXMLAndHTTP');
+    });
+
+    test('handles strings starting with acronyms', () => {
+      expect(toPascalCase('API calls')).toBe('APICalls');
+    });
+
+    test('handles strings ending with acronyms', () => {
+      expect(toPascalCase('calls API')).toBe('CallsAPI');
+    });
+
+    test('converts strings with special characters', () => {
+      expect(toPascalCase('hello@world')).toBe('HelloWorld');
+    });
+
+    test('handles mixed case formats', () => {
+      expect(toPascalCase('JSONData_HTTP2Protocol')).toBe('JSONDataHTTP2Protocol');
+    });
+
+    test('handles long acronyms', () => {
+      expect(toPascalCase('APIResponseXMLFormat')).toBe('APIResponseXMLFormat');
+    });
+  });
+
+  // Tests for toCamelCase
+  describe('toCamelCase', () => {
+    // Existing tests...
+
+    test('handles empty strings', () => {
+      expect(toCamelCase('')).toBe('');
+    });
+
+    test('converts strings with numbers', () => {
+      expect(toCamelCase('hello2world')).toBe('hello2World');
+    });
+
+    test('converts strings starting with numbers', () => {
+      expect(toCamelCase('123hello')).toBe('123Hello');
+    });
+
+    test('converts strings ending with numbers', () => {
+      expect(toCamelCase('hello123')).toBe('hello123');
+    });
+
+    test('converts strings with acronyms', () => {
+      expect(toCamelCase('using API with XML and HTTP')).toBe('usingAPIWithXMLAndHTTP');
+    });
+
+    test('handles strings starting with acronyms', () => {
+      expect(toCamelCase('API calls')).toBe('apiCalls');
+    });
+
+    test('handles strings ending with acronyms', () => {
+      expect(toCamelCase('calls API')).toBe('callsAPI');
+    });
+
+    test('converts strings with special characters', () => {
+      expect(toCamelCase('hello@world')).toBe('helloWorld');
+    });
+
+    test('handles mixed case formats', () => {
+      expect(toCamelCase('JSONData_HTTP2Protocol')).toBe('jsonDataHTTP2Protocol');
+    });
+
+    test('handles long acronyms', () => {
+      expect(toCamelCase('APIResponseXMLFormat')).toBe('apiResponseXMLFormat');
+    });
+  });
+
+  // Tests for toKebabCase
+  describe('toKebabCase', () => {
+    // Existing tests...
+
+    test('handles empty strings', () => {
+      expect(toKebabCase('')).toBe('');
+    });
+
+    test('converts strings with numbers', () => {
+      expect(toKebabCase('hello2world')).toBe('hello-2-world');
+    });
+
+    test('converts strings starting with numbers', () => {
+      expect(toKebabCase('123hello')).toBe('123-hello');
+    });
+
+    test('converts strings ending with numbers', () => {
+      expect(toKebabCase('hello123')).toBe('hello-123');
+    });
+
+    test('converts strings with acronyms', () => {
+      expect(toKebabCase('using API with XML and HTTP')).toBe('using-api-with-xml-and-http');
+    });
+
+    test('handles strings starting with acronyms', () => {
+      expect(toKebabCase('API calls')).toBe('api-calls');
+    });
+
+    test('handles strings ending with acronyms', () => {
+      expect(toKebabCase('calls API')).toBe('calls-api');
+    });
+
+    test('converts strings with special characters', () => {
+      expect(toKebabCase('hello@world')).toBe('hello-world');
+    });
+
+    test('handles mixed case formats', () => {
+      expect(toKebabCase('JSONData_HTTP2Protocol')).toBe('json-data-http-2-protocol');
+    });
+
+    test('handles long acronyms', () => {
+      expect(toKebabCase('APIResponseXMLFormat')).toBe('api-response-xml-format');
+    });
   });
 });

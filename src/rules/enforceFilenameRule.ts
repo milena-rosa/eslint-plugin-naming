@@ -1,6 +1,8 @@
 import { Rule } from 'eslint';
+import path from 'node:path';
 import * as ESTree from 'estree';
 import { isFilenameCamelCase, isFilenamePascalCase } from '../helpers/filename';
+import { toCamelCase, toPascalCase } from '../helpers/casing';
 
 const enforceFilename: Rule.RuleModule = {
   meta: {
@@ -11,15 +13,13 @@ const enforceFilename: Rule.RuleModule = {
       category: 'Best Practices',
       recommended: false
     },
-    messages: {
-      withClassNoPascalCase: 'Files exporting a class should be PascalCase named.',
-      noClassNoCamelCase: 'Files not exporting a class should be camelCase named.'
-    },
     schema: []
   },
   create(context) {
-    const { sourceCode } = context;
+    const { sourceCode, filename } = context;
+    const fileBasename = path.basename(filename);
     let classDeclarationFound = sourceCode.text.includes('module.exports = class');
+    const isTestFile = fileBasename.includes('.spec.') || fileBasename.includes('.test.');
 
     return {
       ClassDeclaration() {
@@ -27,12 +27,19 @@ const enforceFilename: Rule.RuleModule = {
       },
       'Program:exit': (node: ESTree.Program) => {
         const { filename } = context;
-        const validFilename = classDeclarationFound ? isFilenamePascalCase(filename) : isFilenameCamelCase(filename);
+        const { name } = path.parse(filename);
+        const fileBasename = path.basename(filename);
 
+        const validFilename =
+          classDeclarationFound && !isTestFile ? isFilenamePascalCase(fileBasename) : isFilenameCamelCase(fileBasename);
         if (!validFilename) {
           context.report({
             node,
-            messageId: classDeclarationFound ? 'withClassNoPascalCase' : 'noClassNoCamelCase'
+            message:
+              classDeclarationFound && !isTestFile
+                ? `Filename is not in PascalCase. Change it to "${toPascalCase(name)}".`
+                : `Filename is not in camelCase. Change it to "${toCamelCase(name)}".`,
+            loc: { line: 0, column: 0 }
           });
         }
       }

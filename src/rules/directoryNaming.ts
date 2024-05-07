@@ -1,6 +1,6 @@
 import { Rule } from 'eslint';
 import { relative, parse, sep } from 'path';
-import { isKebabCase } from '../helpers/casing';
+import { isKebabCase, toKebabCase } from '../helpers/casing';
 
 const directoryNamingRule: Rule.RuleModule = {
   create(context) {
@@ -21,7 +21,8 @@ const directoryNamingRule: Rule.RuleModule = {
           if (part && !isKebabCase(part)) {
             context.report({
               node,
-              message: `Directory name "${part}" should be in kebab-case.`
+              message: `Directory name "${part}" is not in kebab-case. Change it to "${toKebabCase(part)}".`,
+              loc: { line: 0, column: 0 }
             });
           }
         }

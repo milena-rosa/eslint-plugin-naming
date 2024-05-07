@@ -19,10 +19,10 @@ ruleTester.run('directory-naming', directoryNamingRule, {
   invalid: [
     {
       code: 'var foo = 1;',
-      filename: path.join(projectRoot, '/myProject/integrations/MyModule/index.js'),
+      filename: path.join(projectRoot, '/myProject/integrations/My_Module/index.js'),
       errors: [
-        { message: 'Directory name "myProject" should be in kebab-case.' },
-        { message: 'Directory name "MyModule" should be in kebab-case.' }
+        { message: 'Directory name "myProject" is not in kebab-case. Change it to "my-project".' },
+        { message: 'Directory name "My_Module" is not in kebab-case. Change it to "my-module".' }
       ]
     }
   ]
