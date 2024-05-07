@@ -21,7 +21,7 @@ const directoryNamingRule: Rule.RuleModule = {
           if (part && !isKebabCase(part)) {
             context.report({
               node,
-              message: `"${projectRoot} -- ${relativePath}" - Directory name "${part}" should be in kebab-case.`
+              message: `Directory name "${part}" should be in kebab-case.`
             });
           }
         }
